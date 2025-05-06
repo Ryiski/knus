@@ -335,11 +335,20 @@ fn keyword<S: Span>() -> impl Parser<char, Literal, Error = Error<S>> {
         just("null")
             .map_err(|e: Error<S>| e.with_expected_token("null"))
             .to(Literal::Null),
+        just("#null")
+            .map_err(|e: Error<S>| e.with_expected_token("#null"))
+            .to(Literal::Null),
         just("true")
             .map_err(|e: Error<S>| e.with_expected_token("true"))
             .to(Literal::Bool(true)),
+        just("#true")
+            .map_err(|e: Error<S>| e.with_expected_token("#true"))
+            .to(Literal::Bool(true)),
         just("false")
             .map_err(|e: Error<S>| e.with_expected_token("false"))
+            .to(Literal::Bool(false)),
+        just("#false")
+            .map_err(|e: Error<S>| e.with_expected_token("#false"))
             .to(Literal::Bool(false)),
     ))
 }
